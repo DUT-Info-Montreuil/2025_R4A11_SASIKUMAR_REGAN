@@ -2,18 +2,14 @@ class CounterModel {
 
   CounterModel();
 
-  int _counter = 0;
-
-  int get(){
-    return _counter;
-  }
+  int counter = 0;
 
   void incrementCounter() {
-    _counter++;
+    counter++;
   }
 
   void decrementCounter() {
-    _counter--;
+    counter--;
   }
 
 }

@@ -8,7 +8,7 @@ class CustomCounter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final counterViewModel = context.watch<CounterViewModel>();
-    int counter = counterViewModel.get();
+    int counter = counterViewModel.counter;
     return Padding(
       padding: const EdgeInsets.all(30),
       child: Row(
@@ -24,7 +24,7 @@ class CustomCounter extends StatelessWidget {
           ),
           Icon(
             Icons.favorite,
-            color: counter > -1 ? Colors.red : Colors.black,
+            color: counterViewModel.counter > -1 ? Colors.red : Colors.black,
             size: 48,
             semanticLabel: 'Icône favoris',
           ),
