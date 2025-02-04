@@ -8,10 +8,33 @@ class CustomCounter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final counterViewModel = context.watch<CounterViewModel>();
-
-
-
-    throw UnimplementedError();
+    int counter = counterViewModel.get();
+    return Padding(
+      padding: const EdgeInsets.all(30),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.remove),
+            onPressed: counterViewModel.decrementCounter,
+          ),
+          Text(
+            '$counter',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          Icon(
+            Icons.favorite,
+            color: counter > -1 ? Colors.red : Colors.black,
+            size: 48,
+            semanticLabel: 'Icône favoris',
+          ),
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: counterViewModel.incrementCounter,
+          ),
+        ],
+      ),
+    );
   }
 }
 

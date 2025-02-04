@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tp1/core/constants/constants.dart';
+import 'package:tp1/viewmodels/CounterViewModel.dart';
+import 'package:tp1/widgets/CustomCounter.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key, required this.title});
@@ -21,22 +24,17 @@ class HomeView extends StatefulWidget {
 
 
 class _HomeViewState extends State<HomeView> {
-  int _counter = 0;
+  CounterViewModel counterViewModel = CounterViewModel();
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      counterViewModel.incrementCounter();
     });
   }
 
   void _decrementCounter() {
     setState(() {
-      _counter--;
+      counterViewModel.decrementCounter();
     });
   }
 
@@ -85,34 +83,12 @@ class _HomeViewState extends State<HomeView> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+
             const Text(
               'You have pushed the button this many times:',
             ),
-            Padding(
-              padding: const EdgeInsets.all(30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  IconButton(
-                    icon: const Icon(Icons.remove),
-                    onPressed: _decrementCounter,
-                  ),
-                  Text(
-                    '$_counter',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  Icon(
-                    Icons.favorite,
-                    color: _counter > -1 ? Colors.red : Colors.black,
-                    size: 48,
-                    semanticLabel: 'Icône favoris',
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.add),
-                    onPressed: _incrementCounter,
-                  ),
-                ],
-              ),
+            CustomCounter(
+
             ),
             ElevatedButton(
                 onPressed: () {
