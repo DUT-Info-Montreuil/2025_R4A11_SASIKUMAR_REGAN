@@ -1,14 +1,17 @@
 class CaseModel {
-  bool _hidden = false;
+  bool _hidden = true;
   bool _hasBomb = false;
   bool _hasExploded = false;
   bool _hasFlag = false;
+  int _number = 0;
+
+
 
   CaseModel();
 
-  bool get hasFlaf => _hasFlag;
+  bool get hasFlag => _hasFlag;
 
-  set hasFlaf(bool value) {
+  set hasFlag(bool value) {
     _hasFlag = value;
   }
 
@@ -29,4 +32,12 @@ class CaseModel {
   set hidden(bool value) {
     _hidden = value;
   }
+
+  int get number => _number;
+
+  set number(int value) {
+    _number = value;
+  }
+
+
 }
