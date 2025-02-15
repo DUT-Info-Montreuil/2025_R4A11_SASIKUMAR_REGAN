@@ -9,6 +9,12 @@ class MapModel {
   int nbBomb = 0;
   List<List<CaseModel>> cases = List<List<CaseModel>>.empty();
 
+  MapModel(this.nbLine, this.nbCol, this.nbBomb) {
+    if (nbLine <= 0) nbLine = 1;
+    if (nbCol <= 0) nbCol = 1;
+    if (nbBomb >= nbLine * nbCol) nbBomb = nbLine * nbCol - 1;
+  }
+
   void initCases(){
     cases = List<List<CaseModel>>.generate(
         10, (int index) => List<CaseModel>.generate(
@@ -16,11 +22,15 @@ class MapModel {
   }
 
   void initBomb(){
-    for (var value in cases) {
-      int x = Random().nextInt(nbLine);
-      value.elementAt(x).hasBomb = true;
+    if (nbLine > 0 && nbCol > 0) {
+      for (var i = 0; i < nbBomb; i++) {
+        int x = Random().nextInt(nbLine);  // Assure que nbLine > 0
+        int y = Random().nextInt(nbCol);   // Assure que nbCol > 0
+        cases[x][y].hasBomb = true;
+      }
     }
   }
+
 
   void initNumber(){
     for (var i = 0; i < cases.length; i++) {
