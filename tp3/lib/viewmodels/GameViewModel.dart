@@ -13,6 +13,8 @@ class GameViewModel extends ChangeNotifier {
 
   MapModel get mapModel => _mapModel;
 
+  get revealAll => _mapModel.revealAll();
+
   void generateMap() {
     _mapModel.generateMap();
     notifyListeners();

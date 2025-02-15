@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:tp3/models/CaseModel.dart';
-
 
 class MapModel {
   int nbLine = 0;
@@ -9,17 +7,22 @@ class MapModel {
   int nbBomb = 0;
   List<List<CaseModel>> cases = List<List<CaseModel>>.empty();
 
-  MapModel(this.nbLine, this.nbCol, this.nbBomb) {
-    if (nbLine <= 0) nbLine = 1;
-    if (nbCol <= 0) nbCol = 1;
-    if (nbBomb >= nbLine * nbCol) nbBomb = nbLine * nbCol - 1;
+  MapModel(int nbLine, int nbCol, int nbBomb) {
+    this.nbLine = nbLine;
+    this.nbCol = nbCol;
+    this.nbBomb = nbBomb;
   }
 
-  void initCases(){
-    cases = List<List<CaseModel>>.generate(
-        10, (int index) => List<CaseModel>.generate(
-        10, (int i) => CaseModel()));
+  void initCases() {
+    cases = List.generate(
+      nbLine,
+          (row) => List.generate(
+        nbCol,
+            (col) => CaseModel(),
+      ),
+    );
   }
+
 
   void initBomb(){
     if (nbLine > 0 && nbCol > 0) {
@@ -30,7 +33,6 @@ class MapModel {
       }
     }
   }
-
 
   void initNumber(){
     for (var i = 0; i < cases.length; i++) {
@@ -45,14 +47,20 @@ class MapModel {
 
   int computeNumber(int caseX, int caseY){
     int cptBomb = 0;
-
     for (var i = -1 ; i <= 1 ; i++){
       for (var j = -1 ; j <= 1 ; j++){
-        if (cases[caseX + i][caseY + j].hasBomb) cptBomb++;
+        CaseModel? adjacentCase = tryGetCase(caseX + i, caseY + j);
+        if (adjacentCase != null && adjacentCase.hasBomb) cptBomb++;
       }
     }
-
     return cptBomb;
+  }
+
+  CaseModel? tryGetCase(int x, int y) {
+    if (x >= 0 && x < nbLine && y >= 0 && y < nbCol) {
+      return cases[x][y];
+    }
+    return null;
   }
 
   void generateMap(){
@@ -83,7 +91,6 @@ class MapModel {
   void toggleFlag(int caseX, int caseY){
     cases[caseX][caseY].hasFlag = !cases[caseX][caseY].hasFlag;
   }
-
 
 
 }

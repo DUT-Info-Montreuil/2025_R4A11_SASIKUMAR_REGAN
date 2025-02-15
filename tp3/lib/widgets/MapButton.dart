@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../models/CaseModel.dart';
 import '../viewmodels/GameViewModel.dart';
 
@@ -31,8 +30,21 @@ class MapButton extends StatelessWidget {
           border: Border.all(color: Colors.black),
           color: caseModel.hidden ? Colors.grey : Colors.white,
         ),
-        child: Center(child: GameViewModel(0, 0, 0).getIcon(caseModel)),
+        child: Center(child: _getImageForCase(caseModel)),
       ),
     );
+  }
+
+  Widget _getImageForCase(CaseModel caseModel) {
+    if (!caseModel.hidden) {
+      if (caseModel.hasBomb) {
+        return Image.asset('assets/images/bomb.png', height: 40);
+      } else if (caseModel.number > 0) {
+        return Image.asset('assets/images/${caseModel.number}.png', height: 40);
+      }
+    } else if (caseModel.hasFlag) {
+      return Image.asset('assets/images/flag.png', height: 40);
+    }
+    return Container();
   }
 }
